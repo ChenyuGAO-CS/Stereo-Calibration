@@ -47,7 +47,8 @@ for fname in images:
         #cv2.waitKey(500)
 
 #cv2.destroyAllWindows()
-#print(imgpoints[0])
+
+#prepare image points of left folder for Stereo Calibration
 imgpl_s.append(imgpoints[0]) #left01
 imgpl_s.append(imgpoints[2]) #left03
 imgpl_s.append(imgpoints[3]) #left04
@@ -78,7 +79,7 @@ imgpoints_r = [] # 2d points in image plane.
 imgpr_s = []
 
 images = glob.glob('.//right//*.jpg')
-#print(images)
+
 flag = 0
 for fname in images:
     img = cv2.imread(fname)
@@ -98,6 +99,8 @@ for fname in images:
         #cv2.waitKey(500)
 
 #cv2.destroyAllWindows()
+
+#prepare image points of right folder for Stereo Calibration
 imgpr_s.append(imgpoints_r[0]) #right01
 imgpr_s.append(imgpoints_r[1]) #right03
 imgpr_s.append(imgpoints_r[2]) #right04
