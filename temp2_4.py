@@ -28,6 +28,7 @@ for fname in images:
     #print(gray)
     # Find the chess board corners
     ret, corners = cv2.findChessboardCorners(gray, (7,6),None)
+    #print(corners)
 
     # If found, add object points, image points (after refining them)
     if ret == True:
@@ -37,17 +38,16 @@ for fname in images:
         corners2 = cv2.cornerSubPix(gray,corners,(11,11),(-1,-1),criteria)
         imgpoints.append(corners2)
 
-        if flag < 8:
+        if flag < 7:
             objp_s.append(objp)
             flag = flag+1
 
         # Draw and display the corners
         img = cv2.drawChessboardCorners(img, (7,6), corners2,ret)
-        #cv2.imshow('img',img)
-        #cv2.waitKey(500)
+        # cv2.imshow('img',img)
+        # cv2.waitKey()
 
 #cv2.destroyAllWindows()
-
 #prepare image points of left folder for Stereo Calibration
 imgpl_s.append(imgpoints[0]) #left01
 imgpl_s.append(imgpoints[2]) #left03
@@ -56,7 +56,7 @@ imgpl_s.append(imgpoints[5]) #left06
 imgpl_s.append(imgpoints[6]) #left07
 imgpl_s.append(imgpoints[8]) #left12
 imgpl_s.append(imgpoints[9]) #left13
-imgpl_s.append(imgpoints[10]) #left14
+#imgpl_s.append(imgpoints[10]) #left14
 
 
 l_ret, l_mtx, l_dist, l_rvecs, l_tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
@@ -79,7 +79,7 @@ imgpoints_r = [] # 2d points in image plane.
 imgpr_s = []
 
 images = glob.glob('.//right//*.jpg')
-
+#print(images)
 flag = 0
 for fname in images:
     img = cv2.imread(fname)
@@ -95,8 +95,8 @@ for fname in images:
         imgpoints_r.append(corners2)
 
         img = cv2.drawChessboardCorners(img, (7,6), corners2,ret)
-        #cv2.imshow('img',img)
-        #cv2.waitKey(500)
+        # cv2.imshow('img',img)
+        # cv2.waitKey()
 
 #cv2.destroyAllWindows()
 
@@ -108,7 +108,7 @@ imgpr_s.append(imgpoints_r[3]) #right06
 imgpr_s.append(imgpoints_r[4]) #right07
 imgpr_s.append(imgpoints_r[7]) #right12
 imgpr_s.append(imgpoints_r[8]) #right13
-imgpr_s.append(imgpoints_r[9]) #right14
+#imgpr_s.append(imgpoints_r[9]) #right14
 
 r_ret, r_mtx, r_dist, r_rvecs, r_tvecs = cv2.calibrateCamera(objpoints, imgpoints_r, gray.shape[::-1],None,None)
 
